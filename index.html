@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neighborhood Hauling &amp; Junk Removal × Neighborhood Barbers — Double Deal</title>
+  <meta name="description" content="A double deal for Neighborhood Barbers clients: book a junk-removal job with Neighborhood Hauling and Junk Removal and get a discounted (or free) haircut. Through Dec 31, 2026." />
+
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!--
+    Brand fonts — chosen to match neighborhoodhaulingut.com:
+      Display: Saira Condensed (heavy italic, condensed sans) — matches the
+               site's italic-heavy headlines like "RECLAIM YOUR SPACE".
+      Body:    JetBrains Mono — matches the site's monospace body voice.
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Saira+Condensed:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --yellow: #FFD300;
+      --yellow-2: #FFC400;
+      --ink: #0a0a0a;
+      --ink-2: #161616;
+    }
+    html, body { background: #0a0a0a; overflow-x: hidden; }
+    body {
+      font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      color: #f5f5f5;
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Prevent text overflow on small screens */
+    h1, h2 { word-wrap: break-word; overflow-wrap: break-word; }
+
+    /* HEAVY ITALIC DISPLAY (matches the site's headline voice) */
+    .display {
+      font-family: 'Saira Condensed', 'Arial Black', sans-serif;
+      font-style: italic;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      line-height: 0.92;
+    }
+
+    /* Outline-only yellow text treatment (matches the "SPACE" hero word) */
+    .stroke-yellow {
+      color: transparent;
+      -webkit-text-stroke: 2px #FFD300;
+      text-stroke: 2px #FFD300;
+    }
+    @media (min-width: 640px) {
+      .stroke-yellow { -webkit-text-stroke-width: 3px; text-stroke-width: 3px; }
+    }
+
+    /* Skewed parallelogram pill / button — counter-skew the inner content
+       so the text stays upright while the container leans. */
+    .skew-box {
+      display: inline-block;
+      transform: skewX(-14deg);
+    }
+    .skew-box > * {
+      display: inline-block;
+      transform: skewX(14deg);
+    }
+
+    /* Brand button: yellow parallelogram with hard black shadow */
+    .btn-yellow {
+      background: var(--yellow);
+      color: var(--ink);
+      transform: skewX(-14deg);
+      box-shadow: 6px 6px 0 #000;
+      transition: transform 0.1s, box-shadow 0.1s;
+      border: 0;
+    }
+    .btn-yellow:hover {
+      transform: skewX(-14deg) translate(-2px, -2px);
+      box-shadow: 8px 8px 0 #000;
+    }
+    .btn-yellow:active {
+      transform: skewX(-14deg) translate(3px, 3px);
+      box-shadow: 1px 1px 0 #000;
+    }
+    .btn-yellow > .skew-inner {
+      display: inline-block;
+      transform: skewX(14deg);
+    }
+    .btn-outline {
+      background: transparent;
+      color: #fff;
+      border: 2px solid #fff;
+      transform: skewX(-14deg);
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .btn-outline:hover {
+      border-color: var(--yellow);
+      color: var(--yellow);
+    }
+    .btn-outline > .skew-inner {
+      display: inline-block;
+      transform: skewX(14deg);
+    }
+
+    /* Yellow vertical bar quote indicator (matches the site's body paragraphs) */
+    .quote-bar {
+      border-left: 3px solid var(--yellow);
+      padding-left: 1rem;
+    }
+
+    /* Cream + yellow diagonal stripes (matches the site's light sections) */
+    .stripes-cream {
+      background-color: #fffbe6;
+      background-image: repeating-linear-gradient(
+        135deg,
+        rgba(255, 211, 0, 0.18),
+        rgba(255, 211, 0, 0.18) 8px,
+        transparent 8px,
+        transparent 24px
+      );
+    }
+
+    /* Diagonal section cuts (matches the site's slanted black/light edges) */
+    .clip-diag-bottom {
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 4rem), 0 100%);
+    }
+    .clip-diag-top {
+      clip-path: polygon(0 4rem, 100% 0, 100% 100%, 0 100%);
+    }
+    @media (min-width: 640px) {
+      .clip-diag-bottom { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 6rem), 0 100%); }
+      .clip-diag-top    { clip-path: polygon(0 6rem, 100% 0, 100% 100%, 0 100%); }
+    }
+
+    /* Tier card with hard black shadow offset (matches the site's service cards) */
+    .card-shadow {
+      box-shadow: 8px 8px 0 #000;
+    }
+    .card-shadow-yellow {
+      box-shadow: 8px 8px 0 var(--yellow);
+    }
+
+    /* Hero radial glow */
+    .grit {
+      background-color: #0a0a0a;
+      background-image:
+        radial-gradient(circle at 18% 22%, rgba(255,211,0,0.10) 0%, transparent 55%),
+        radial-gradient(circle at 82% 78%, rgba(255,211,0,0.06) 0%, transparent 60%);
+    }
+
+    /* Caution-tape stripe between sections */
+    .stripe-tape {
+      height: 12px;
+      background-image: repeating-linear-gradient(
+        135deg,
+        var(--yellow),
+        var(--yellow) 18px,
+        var(--ink) 18px,
+        var(--ink) 36px
+      );
+    }
+
+    /* Lightning bolt — inline SVG */
+    .bolt {
+      display: inline-block;
+      width: 0.85em;
+      height: 0.85em;
+      vertical-align: -0.05em;
+      fill: currentColor;
+      margin-right: 0.35em;
+    }
+
+    /* Form-frame: yellow box around the GHL iframe + black skewed badge.
+       The badge lives in a sibling wrapper so it isn't clipped by any
+       iframe stacking context inside the frame. */
+    .form-wrap {
+      position: relative;
+    }
+    .form-frame {
+      background: var(--yellow);
+      box-shadow: 10px 10px 0 #000;
+    }
+    .form-tag {
+      position: absolute;
+      top: 0;
+      right: 1.5rem;
+      z-index: 20;
+      background: #0a0a0a;
+      color: #fff;
+      transform: skewX(-14deg);
+      padding: 0.65rem 1.4rem;
+      font-family: 'Saira Condensed', sans-serif;
+      font-style: italic;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border: 2px solid #fff;
+      box-shadow: 4px 4px 0 var(--yellow);
+      white-space: nowrap;
+    }
+    .form-tag > span { display: inline-block; transform: skewX(14deg); }
+
+    /* Yellow underline divider under H2s (matches the site's H2 underline) */
+    .h2-divider {
+      display: inline-block;
+      width: 84px;
+      height: 6px;
+      background: var(--yellow);
+      margin-top: 0.6rem;
+    }
+
+    /* Skewed checkbox/icon tile (matches the site's feature checks) */
+    .check-tile {
+      width: 2.6rem;
+      height: 2.6rem;
+      background: var(--yellow);
+      transform: skewX(-14deg);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .check-tile > svg { transform: skewX(14deg); }
+
+    /* Phone CTA in header — skewed yellow parallelogram with shadow */
+    .phone-cta {
+      background: var(--yellow);
+      color: var(--ink);
+      transform: skewX(-14deg);
+      box-shadow: 4px 4px 0 #fff2;
+      transition: box-shadow 0.1s;
+    }
+    .phone-cta > span { display: inline-block; transform: skewX(14deg); }
+    .phone-cta:hover { box-shadow: 6px 6px 0 #fff4; }
+
+    /* Logo backplates — both logos were designed for light backgrounds,
+       so cream slabs sit behind each one in the black header so the
+       black outlines and icon details read clearly. The yellow drop-
+       shadow ties them to the brand instead of looking like a fix. */
+    .logo-slab {
+      background: #fffbe6;
+      padding: 0.4rem 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      border: 2px solid #0a0a0a;
+      box-shadow: 4px 4px 0 var(--yellow);
+    }
+    @media (min-width: 640px) {
+      .logo-slab { padding: 0.5rem 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================== -->
+  <!-- Header / brand strip            -->
+  <!-- ============================== -->
+  <!--
+    LOGOS — local files saved by Jonny 2026-04-27.
+      Hauling: ghost-zero/clients/neighborhood-hauling/NBRHD Hauling Logo.png
+      Barbers: ghost-zero/clients/neighborhood barbers logo transparent.png
+    DEPLOY NOTE: For GitHub Pages, copy both PNGs into this same
+    barbershop-deal/ folder (or an `assets/` subfolder) and update the
+    src paths — relative paths reaching outside the repo root won't deploy.
+  -->
+  <header class="bg-black">
+    <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3 sm:gap-4">
+        <a href="https://neighborhoodhaulingut.com" target="_blank" rel="noopener" class="logo-slab" title="Visit Neighborhood Hauling and Junk Removal">
+          <img
+            src="hauling-logo.png"
+            alt="Neighborhood Hauling and Junk Removal"
+            class="h-8 sm:h-11 w-auto"
+          />
+        </a>
+        <span class="display text-yellow-400 text-2xl sm:text-3xl">×</span>
+        <a href="https://neighborhoodbarbersutah.com" target="_blank" rel="noopener" class="logo-slab" title="Visit Neighborhood Barbers">
+          <img
+            src="barbers-logo.png"
+            alt="Neighborhood Barbers"
+            class="h-8 sm:h-11 w-auto"
+          />
+        </a>
+      </div>
+      <a href="#quote" class="phone-cta px-4 sm:px-5 py-2.5 sm:py-3 display text-xs sm:text-sm tracking-wider whitespace-nowrap">
+        <span>
+          <span class="hidden sm:inline">GET FREE QUOTE</span>
+          <span class="sm:hidden">QUOTE</span>
+        </span>
+      </a>
+    </div>
+  </header>
+
+  <div class="stripe-tape"></div>
+
+  <!-- ============================== -->
+  <!-- HERO                            -->
+  <!-- ============================== -->
+  <section class="grit relative clip-diag-bottom">
+    <div class="max-w-5xl mx-auto px-6 pt-12 sm:pt-20 pb-24 sm:pb-32">
+      <div class="text-center sm:text-left">
+
+        <!-- Tagline pill: skewed yellow parallelogram with bolt -->
+        <div class="skew-box bg-yellow-400 text-black px-4 py-2 mb-6">
+          <span class="display text-xs sm:text-sm tracking-[0.18em]">
+            <svg class="bolt" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L3 14h7l-1 8 11-13h-7l1-7z"/></svg>
+            KEEPIN' THE HOOD CLEAN
+          </span>
+        </div>
+
+        <!-- Hero headline: italic display, yellow outline + solid yellow accent -->
+        <h1 class="display text-white text-4xl sm:text-7xl lg:text-8xl">
+          GOT JUNK <span class="stroke-yellow">PILING UP?</span><br />
+          GET A <span class="text-yellow-400">FRESH CUT.</span>
+        </h1>
+
+        <!-- Body paragraph with yellow vertical-bar quote indicator -->
+        <div class="quote-bar mt-8 max-w-xl">
+          <p class="text-sm sm:text-base text-zinc-300 leading-relaxed">
+            Your barber Mou opened
+            <a href="https://neighborhoodhaulingut.com" target="_blank" rel="noopener" class="text-yellow-400 font-bold underline-offset-2 hover:underline">Neighborhood Hauling and Junk Removal</a> —
+            and he's running a deal for the shop's clients through year-end.
+            Spend on junk removal, save on haircuts. Easy.
+          </p>
+        </div>
+
+        <!-- Tier cards (in the hero so the offer is visible without scrolling) -->
+        <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 max-w-3xl">
+
+          <!-- $130+ tier (dark) -->
+          <div class="card-shadow bg-zinc-900 border-2 border-yellow-400/40 p-5 sm:p-6 relative">
+            <div class="absolute top-0 left-0 h-1.5 w-full bg-yellow-400"></div>
+            <div class="display text-zinc-500 text-[10px] sm:text-xs tracking-[0.25em]">SPEND</div>
+            <div class="display text-white text-5xl sm:text-6xl mt-1">
+              $130<span class="text-yellow-400">+</span>
+            </div>
+            <div class="text-[11px] text-zinc-400 mt-1">on junk removal</div>
+            <div class="mt-5 pt-5 border-t border-yellow-400/20">
+              <div class="display text-zinc-500 text-[10px] sm:text-xs tracking-[0.25em]">YOU GET</div>
+              <div class="display text-yellow-400 text-3xl sm:text-4xl mt-1 leading-[0.95]">
+                50% OFF<br/>ANY CUT
+              </div>
+            </div>
+          </div>
+
+          <!-- $400+ tier (yellow, "BEST DEAL") -->
+          <div class="card-shadow bg-yellow-400 text-black p-5 sm:p-6 relative">
+            <!-- Skewed black "BEST DEAL" badge — sits inside on mobile, sticks out on desktop -->
+            <div class="absolute -top-3 right-2 sm:-right-3 skew-box bg-black border-2 border-yellow-400 px-3 py-1.5">
+              <span class="display text-yellow-400 text-[10px] tracking-[0.2em]">BEST DEAL</span>
+            </div>
+            <div class="absolute top-0 left-0 h-1.5 w-full bg-black"></div>
+            <div class="display text-black/70 text-[10px] sm:text-xs tracking-[0.25em] mt-2">SPEND</div>
+            <div class="display text-black text-5xl sm:text-6xl mt-1">
+              $400<span>+</span>
+            </div>
+            <div class="text-[11px] text-black/70 mt-1">on junk removal</div>
+            <div class="mt-5 pt-5 border-t border-black/30">
+              <div class="display text-black/70 text-[10px] sm:text-xs tracking-[0.25em]">YOU GET</div>
+              <div class="display text-black text-3xl sm:text-4xl mt-1 leading-[0.95]">
+                FREE CUT<br/>ON US
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTAs: skewed parallelogram buttons. Quote / Call / Text.
+             Stack on mobile, wrap on narrow tablets, single row on desktop. -->
+        <div class="mt-10 flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-5">
+          <a href="#quote" class="btn-yellow display text-sm sm:text-base tracking-[0.12em] px-6 py-3.5 inline-flex items-center justify-center">
+            <span class="skew-inner">GET A QUOTE →</span>
+          </a>
+          <a href="tel:8015164149" class="btn-outline display text-sm sm:text-base tracking-[0.12em] px-5 py-3.5 inline-flex items-center justify-center">
+            <span class="skew-inner">CALL 801-516-4149</span>
+          </a>
+          <a href="sms:8015164149" class="btn-outline display text-sm sm:text-base tracking-[0.12em] px-5 py-3.5 inline-flex items-center justify-center">
+            <span class="skew-inner">TEXT 801-516-4149</span>
+          </a>
+        </div>
+        <p class="mt-5 text-xs sm:text-sm text-zinc-400">
+          See more from Mou at
+          <a href="https://neighborhoodhaulingut.com" target="_blank" rel="noopener" class="text-yellow-400 hover:text-white underline-offset-2 hover:underline">neighborhoodhaulingut.com</a> →
+        </p>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== -->
+  <!-- REFERRAL ANGLE — light section  -->
+  <!-- ============================== -->
+  <section class="stripes-cream text-black clip-diag-top -mt-12 sm:-mt-16 relative z-10">
+    <div class="max-w-5xl mx-auto px-6 pt-20 sm:pt-28 pb-14 sm:pb-20">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start">
+        <!-- Left: headline -->
+        <div>
+          <div class="skew-box bg-black text-yellow-400 px-3 py-1.5">
+            <span class="display text-[11px] tracking-[0.25em]">EVEN BETTER</span>
+          </div>
+          <h2 class="display mt-5 text-4xl sm:text-6xl text-black">
+            REFER A FRIEND.<br/>
+            <span class="text-black/30">STILL </span><span class="text-black">GET PAID.</span>
+          </h2>
+          <span class="h2-divider"></span>
+          <div class="quote-bar mt-6 max-w-md">
+            <p class="text-sm sm:text-base text-zinc-700 leading-relaxed">
+              Send a friend, family member, or neighbor Mou's way. They book a hauling job —
+              the same haircut deal lands in your chair.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: three feature rows with skewed yellow check tiles -->
+        <div class="space-y-4">
+          <div class="flex gap-4 items-start bg-black p-4 rounded-none border-l-2 border-yellow-400">
+            <span class="check-tile">
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M5 10l3 3 7-7" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <div>
+              <div class="display text-white text-lg sm:text-xl">REWARDS STACK</div>
+              <p class="text-xs sm:text-sm text-zinc-300 mt-1">Every referral that books a job earns you another haircut deal. No cap.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start bg-black p-4 rounded-none border-l-2 border-yellow-400">
+            <span class="check-tile">
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M5 10l3 3 7-7" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <div>
+              <div class="display text-white text-lg sm:text-xl">YOU OR THEM</div>
+              <p class="text-xs sm:text-sm text-zinc-300 mt-1">Book it yourself or send a friend, family member, or neighbor — either way, you get the reward.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start bg-black p-4 rounded-none border-l-2 border-yellow-400">
+            <span class="check-tile">
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M5 10l3 3 7-7" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <div>
+              <div class="display text-white text-lg sm:text-xl">RUNS ALL YEAR</div>
+              <p class="text-xs sm:text-sm text-zinc-300 mt-1">Promo's live through Dec 31, 2026. Stack as many as you can pile up.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== -->
+  <!-- FORM — black section            -->
+  <!-- ============================== -->
+  <section id="quote" class="bg-black clip-diag-bottom">
+    <div class="max-w-3xl mx-auto px-6 pt-14 sm:pt-20 pb-28 sm:pb-36">
+      <div class="text-left">
+        <div class="skew-box bg-yellow-400 text-black px-3 py-1.5 mb-5">
+          <span class="display text-[11px] tracking-[0.25em]">GET A QUOTE</span>
+        </div>
+        <h2 class="display text-white text-4xl sm:text-6xl">
+          TELL MOU<br />
+          <span class="stroke-yellow">WHAT YOU'VE GOT.</span>
+        </h2>
+        <span class="h2-divider"></span>
+        <p class="quote-bar mt-5 max-w-xl text-sm sm:text-base text-zinc-300">
+          He'll text or call you back the same day. No corporate runaround,
+          no hidden fees — just a guy and a truck.
+        </p>
+      </div>
+
+      <!--
+        Real Neighborhood Hauling lead form, embedded from GHL.
+        Form ID: ErRRyunhwGfKzdc7VxLR (Neighborhood Hauling sub-account).
+        ?source=barbershop-promo prefills the hidden source field so
+        only submissions from THIS page get tagged for the internal-
+        notification workflow and monthly redemption counting.
+      -->
+      <div class="mt-14 form-wrap">
+        <div class="form-tag"><span>GET FAST ESTIMATE</span></div>
+        <div class="form-frame mt-6 p-1.5">
+        <iframe
+          src="https://api.leadconnectorhq.com/widget/form/ErRRyunhwGfKzdc7VxLR?source=barbershop-promo"
+          style="width:100%;height:680px;border:none;background:#FFD300;display:block;"
+          id="inline-ErRRyunhwGfKzdc7VxLR"
+          data-layout='{"id":"INLINE"}'
+          data-trigger-type="alwaysShow"
+          data-activation-type="alwaysActivated"
+          data-deactivation-type="neverDeactivate"
+          data-form-name="Neighborhood Hauling — Barbershop Promo Quote"
+          data-height="680"
+          data-layout-iframe-id="inline-ErRRyunhwGfKzdc7VxLR"
+          data-form-id="ErRRyunhwGfKzdc7VxLR"
+          title="Get a quote from Neighborhood Hauling"
+        ></iframe>
+        <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+
+      <div class="mt-10 text-center">
+        <p class="text-xs sm:text-sm text-zinc-400 mb-3">Prefer to skip the form? Reach Mou directly:</p>
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-md mx-auto">
+          <a href="tel:8015164149" class="btn-outline display text-sm tracking-[0.12em] px-5 py-3 inline-flex items-center justify-center flex-1">
+            <span class="skew-inner">CALL 801-516-4149</span>
+          </a>
+          <a href="sms:8015164149" class="btn-outline display text-sm tracking-[0.12em] px-5 py-3 inline-flex items-center justify-center flex-1">
+            <span class="skew-inner">TEXT 801-516-4149</span>
+          </a>
+        </div>
+        <p class="mt-5 text-xs sm:text-sm text-zinc-400">
+          Or see what else Mou hauls at
+          <a href="https://neighborhoodhaulingut.com" target="_blank" rel="noopener" class="text-yellow-400 hover:text-white underline-offset-2 hover:underline">neighborhoodhaulingut.com</a> →
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== -->
+  <!-- FOOTER                          -->
+  <!-- ============================== -->
+  <footer class="stripes-cream text-black clip-diag-top -mt-16 sm:-mt-20 relative z-10">
+    <div class="max-w-5xl mx-auto px-6 pt-24 sm:pt-32 pb-12 text-center">
+      <p class="display text-black text-3xl sm:text-5xl tracking-tight mb-2">
+        <svg class="bolt text-yellow-400" viewBox="0 0 24 24" aria-hidden="true" style="fill:#FFD300;"><path d="M13 2L3 14h7l-1 8 11-13h-7l1-7z"/></svg>
+        KEEPIN' THE HOOD CLEAN.
+      </p>
+      <span class="h2-divider"></span>
+      <p class="mt-8 text-[11px] sm:text-xs text-zinc-700 leading-relaxed max-w-2xl mx-auto">
+        Promo runs through Dec 31, 2026.
+        Each qualifying junk-removal job earns one haircut reward — refer as many as you like, rewards stack.
+        Discount applied at the barbershop after the hauling invoice clears.
+        Cannot be combined with other offers.
+      </p>
+      <p class="mt-4 text-[11px] sm:text-xs text-zinc-600">
+        <a href="https://neighborhoodhaulingut.com" target="_blank" rel="noopener" class="hover:text-black underline-offset-2 hover:underline">Neighborhood Hauling and Junk Removal</a>
+        ·
+        <a href="https://neighborhoodbarbersutah.com" target="_blank" rel="noopener" class="hover:text-black underline-offset-2 hover:underline">Neighborhood Barbers</a>
+        · Bluffdale, Utah ·
+        <a href="tel:8015164149" class="hover:text-black underline-offset-2 hover:underline">801-516-4149</a>
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
